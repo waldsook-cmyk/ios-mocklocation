@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <!-- 顶部状态栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📍 任意移动"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未启动"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/status_bg"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp" />
+
+        <ImageButton
+            android:id="@+id/btn_settings"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_help"
+            android:contentDescription="设置"
+            android:tint="#FFFFFF" />
+
+    </LinearLayout>
+
+    <!-- 搜索栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="搜索地点，如：北京、南京南站"
+            android:inputType="text"
+            android:background="@drawable/edit_bg"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:layout_marginEnd="6dp"
+            android:imeOptions="actionSearch"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
+            android:text="搜索"
+            android:textSize="13sp"
+            android:background="@drawable/btn_primary"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="6dp" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
+            android:text="⭐收藏"
+            android:textSize="11sp"
+            android:background="@drawable/btn_secondary"
+            android:textColor="#FF9800" />
+
+    </LinearLayout>
+
+    <!-- 地图区域 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true" />
+
+        <!-- 中心标记 -->
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@android:drawable/ic_menu_mylocation"
+            android:background="#80FFFFFF"
+            android:padding="4dp" />
+
+        <!-- 定位到当前位置按钮 -->
+        <ImageButton
+            android:id="@+id/btn_locate"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:background="@drawable/btn_circle"
+            android:src="@android:drawable/ic_menu_compass"
+            android:padding="12dp"
+            android:contentDescription="定位到当前位置" />
+
+    </FrameLayout>
+
+    <!-- 底部控制区 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="12dp"
+        android:elevation="8dp">
+
+        <!-- 坐标显示 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
+
+            <EditText
+                android:id="@+id/et_latitude"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:hint="纬度"
+                android:inputType="numberDecimal|numberSigned"
+                android:background="@drawable/edit_bg"
+                android:padding="8dp"
+                android:textSize="12sp"
+                android:layout_marginEnd="6dp" />
+
+            <EditText
+                android:id="@+id/et_longitude"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:hint="经度"
+                android:inputType="numberDecimal|numberSigned"
+                android:background="@drawable/edit_bg"
+                android:padding="8dp"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- 收藏的位置列表 -->
+        <HorizontalScrollView
+            android:id="@+id/scroll_favorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/layout_favorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+        </HorizontalScrollView>
+
+        <!-- 控制按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_start"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="▶ 启动模拟"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:background="@drawable/btn_primary"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btn_stop"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="⏹ 停止"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:background="@drawable/btn_danger"
+                android:textColor="#FFFFFF"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

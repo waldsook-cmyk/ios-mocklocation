@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MockLocation" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#667EEA</item>
+        <item name="colorPrimaryDark">#5A6FD6</item>
+        <item name="colorAccent">#667EEA</item>
+        <item name="android:statusBarColor">#667EEA</item>
+    </style>
+</resources>
