@@ -1,0 +1,49 @@
+name: iOS unsigned IPA build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install XcodeGen
+        run: |
+          brew update
+          brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: ios-app
+        run: xcodegen generate
+
+      - name: Build archive (unsigned)
+        working-directory: ios-app
+        run: |
+          xcodebuild \
+            -project MockLocationApp.xcodeproj \
+            -scheme MockLocationApp \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/MockLocationApp.xcarchive \
+            archive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            ENABLE_BITCODE=NO
+
+      - name: Create IPA (unsigned)
+        working-directory: ios-app
+        run: |
+          mkdir -p build/Payload
+          cp -R build/MockLocationApp.xcarchive/Products/Applications/MockLocationApp.app build/Payload/
+          cd build
+          zip -rq MockLocationApp-unsigned.ipa Payload
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: MockLocationApp-unsigned
+          path: ios-app/build/MockLocationApp-unsigned.ipa
