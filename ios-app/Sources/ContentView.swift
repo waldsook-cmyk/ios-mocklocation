@@ -54,7 +54,7 @@ struct ContentView: View {
         Map(coordinateRegion: $region, annotationItems: vm.annotationItems) { item in
             MapMarker(coordinate: item.coordinate, tint: .red)
         }
-        .onChange(of: vm.currentCoordinate) { value in
+        .onReceive(vm.$currentCoordinate) { value in
             if let c = value { region.center = c }
         }
     }
